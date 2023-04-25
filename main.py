@@ -1,3 +1,5 @@
+import student
+
 class MyLinkedList:
     def __init__(self):
         self.head = None
@@ -8,7 +10,7 @@ class MyLinkedList:
         ret = ''
         current = self.head
         while current is not None:
-            ret += str(current.data)
+            ret += str(current)
             current = current.nextE
         return ret
 
@@ -28,7 +30,7 @@ class MyLinkedList:
             if current.nextE is None:
                 return False
             else:
-                if current.nextE.data == e.data:
+                if current.nextE == e:
                     next = current.nextE.nextE
                     current.nextE = next
                     self.size -= 1
@@ -51,7 +53,7 @@ class MyLinkedList:
                     self.size += 1
                     return True
                 else:
-                    if func(e.data, current.nextE.data):
+                    if func(e, current.nextE):
                         e.nextE = current.nextE
                         current.nextE = e
                         self.size += 1
@@ -60,20 +62,12 @@ class MyLinkedList:
             return False
 
 
-class Element:
-    def __init__(self, data=None, nextE=None):
-        self.data = data
-        self.nextE = nextE
-
-
 if __name__ == '__main__':
     lista = MyLinkedList()
-    lista.append(Element(1))
-    lista.append(Element(4))
-    lista.append(Element(8))
-    lista.append(Element(3))
-    lista.append(Element(2))
+    student1 = student.Student("lukasz@gmail.com", "lukasz", "kwasniewicz")
+    student2 = student.Student("lukasz@gmail.com", "adam", "zdun")
+    lista.append(student1, lambda x, y, func: student.Student.compareStudentsNames(x, y))
+    lista.append(student2, lambda x, y, func: student.Student.compareStudentsNames(x, y))
 
-    lista.delete(Element(4))
+    lista.delete(student)
     print(lista)
-    print(lista.get(2).data)
